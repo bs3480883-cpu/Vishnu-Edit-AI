@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Vishnu Edit AI</string>
+    <string name="brand_title">VISHNU EDIT AI</string>
+    <string name="brand_tagline">Cinematic AI Video Showcase &amp; Prompt Studio</string>
+    <string name="search_placeholder">Search AI videos, prompts, models, or styles…</string>
+    <string name="section_featured_videos">Featured AI Videos</string>
+    <string name="section_latest_uploads">Latest Uploads</string>
+    <string name="section_popular_prompts">Popular AI Prompts</string>
+    <string name="section_video_categories">Video Categories</string>
+    <string name="btn_copy_prompt">COPY PROMPT</string>
+    <string name="msg_prompt_copied">Prompt Copied Successfully</string>
+    <string name="btn_share_video">Share</string>
+    <string name="btn_save_prompt">Save Prompt</string>
+    <string name="btn_saved_prompt">Saved</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_categories">Categories</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_saved">Saved Prompts</string>
+    <string name="nav_profile">Profile</string>
+    <string name="admin_dashboard_title">Owner Admin Studio</string>
+    <string name="sign_in_google">Sign in with Google</string>
+</resources>

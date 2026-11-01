@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "AdminSession": {
+      "description": "Server-verified Owner Admin session created by validating the SHA-256 hash of the Owner Admin password.",
+      "fields": {
+        "sessionId": { "type": "string", "required": true },
+        "passkeyHash": { "type": "string", "required": true },
+        "createdAt": { "type": "timestamp", "required": true }
+      }
+    },
+    "StudioBootstrap": {
+      "description": "Tracks one-time initial seeding of the VISHNU EDIT AI video showcase.",
+      "fields": {
+        "seeded": { "type": "boolean", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true }
+      }
+    },
+    "VideoShowcase": {
+      "description": "AI Video and Photo Showcase item with complete AI generation prompt, category, media URLs, and publish status. Publicly readable when published == true; writable only with a server-verified AdminSession.",
+      "fields": {
+        "title": { "type": "string", "required": true, "minLength": 1, "maxLength": 150 },
+        "description": { "type": "string", "required": true, "minLength": 1, "maxLength": 2000 },
+        "videoUrl": { "type": "string", "required": true, "minLength": 1, "maxLength": 1000 },
+        "thumbnailUrl": { "type": "string", "required": true, "minLength": 1, "maxLength": 1000 },
+        "prompt": { "type": "string", "required": true, "minLength": 1, "maxLength": 4000 },
+        "category": {
+          "type": "string",
+          "required": true,
+          "enum": [
+            "Cinematic AI Videos",
+            "Animal AI Videos",
+            "Realistic AI Videos",
+            "3D Animation",
+            "VFX Videos",
+            "AI Short Films"
+          ]
+        },
+        "published": { "type": "boolean", "required": true },
+        "featured": { "type": "boolean", "required": true },
+        "popularPrompt": { "type": "boolean", "required": true },
+        "durationSeconds": { "type": "integer", "required": true, "min": 0, "max": 36000 },
+        "aspectRatio": { "type": "string", "required": true, "minLength": 1, "maxLength": 20 },
+        "aiModel": { "type": "string", "required": true, "minLength": 1, "maxLength": 80 },
+        "authorId": { "type": "string", "required": true, "minLength": 1, "maxLength": 128 },
+        "adminSessionId": { "type": "string", "required": true, "minLength": 1, "maxLength": 128 },
+        "pendingDelete": { "type": "boolean", "required": true },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true }
+      }
+    },
+    "SavedPrompt": {
+      "description": "AI Prompt bookmarked by a public visitor device without requiring user login.",
+      "fields": {
+        "visitorId": { "type": "string", "required": true, "minLength": 1, "maxLength": 128 },
+        "videoId": { "type": "string", "required": true, "minLength": 1, "maxLength": 128 },
+        "videoTitle": { "type": "string", "required": true, "minLength": 1, "maxLength": 150 },
+        "prompt": { "type": "string", "required": true, "minLength": 1, "maxLength": 4000 },
+        "category": { "type": "string", "required": true, "minLength": 1, "maxLength": 80 },
+        "thumbnailUrl": { "type": "string", "required": true, "minLength": 1, "maxLength": 1000 },
+        "aiModel": { "type": "string", "required": true, "minLength": 1, "maxLength": 80 },
+        "notes": { "type": "string", "required": true, "minLength": 0, "maxLength": 500 },
+        "createdAt": { "type": "timestamp", "required": true },
+        "updatedAt": { "type": "timestamp", "required": true }
+      }
+    }
+  },
+  "collections": {
+    "/admin_sessions/{sessionId}": {
+      "entity": "AdminSession",
+      "security": "Server-verified Owner Admin sessions. Create/update allowed only when passkeyHash matches the Owner Admin password SHA-256 digest. Listing is strictly forbidden."
+    },
+    "/studio_config/{configId}": {
+      "entity": "StudioBootstrap",
+      "security": "Tracks initial showcase seeding status."
+    },
+    "/videos/{videoId}": {
+      "entity": "VideoShowcase",
+      "security": "Public visitors can read and list published videos without login. Only callers with a valid server-verified /admin_sessions/{adminSessionId} can create, update, publish/unpublish, or delete videos."
+    },
+    "/visitors/{visitorId}/saved_prompts/{savedId}": {
+      "entity": "SavedPrompt",
+      "security": "Public visitors can read, create, update notes, and delete saved prompts scoped to their device visitorId without requiring any user login."
+    }
+  }
+}

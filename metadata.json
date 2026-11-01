@@ -1,0 +1,6 @@
+{
+  "name": "Vishnu Edit AI",
+  "description": "Professional AI Video Showcase and Prompt Sharing platform with cinematic video previews, prompt library, and owner studio management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
